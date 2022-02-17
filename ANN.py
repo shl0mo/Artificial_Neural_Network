@@ -7,10 +7,17 @@ Original file is located at
     https://colab.research.google.com/drive/1ZFbO8etqJmvtfurACtP47PEPz5o95LsF
 """
 
+!pip install Cython
+!pip install https://github.com/Santosh-Gupta/scikit-learn/archive/master.zip
+
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+from sklearn.preprocessing import LabelEncoder
 
 dataset = pd.read_csv('Churn_Modelling.csv')
 x = dataset.iloc[:, 3:-1]
 y = dataset.iloc[:, -1]
+
+le = LabelEncoder()
+x.iloc[:, 2] = le.fit_transform(x.iloc[:, 2])
