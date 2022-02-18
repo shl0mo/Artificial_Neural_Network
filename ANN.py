@@ -45,13 +45,25 @@ ann = tf.keras.models.Sequential()
 ann.add(tf.keras.layers.Dense(units = 6, activation = 'relu'))
 
 # Add second layer
-ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+ann.add(tf.keras.layers.Dense(units = 6, activation = 'relu'))
 
 # Add the output layer
-ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+ann.add(tf.keras.layers.Dense(units = 1, activation = 'sigmoid'))
 
 # Compile ANN
-ann.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+ann.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
 # Trains ANN on Training set
-ann.fit(x_train, y_train, batch_size=32, epochs=100)
+ann.fit(x_train, y_train, batch_size = 32, epochs = 100)
+
+# Predict if the costumer with the following informations will leave the bank:
+#   Greography: France
+#   Credit Score: 600
+#   Gender: Male
+#   Age: 40 years old
+#   Tenure: 3 years
+#   Balance: $ 60000
+#   Have a credit card: yes
+#   Is it an active member: yes
+#   Estimated salary: $ 50000
+print(ann.predict(sc.transform([[0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])) > 0.5)
