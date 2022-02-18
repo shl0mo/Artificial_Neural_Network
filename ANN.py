@@ -22,13 +22,15 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 dataset = pd.read_csv('Churn_Modelling.csv')
 x = dataset.iloc[:, 3:-1]
 y = dataset.iloc[:, -1]
+x
 
 # Encoding "Gender"
 le = LabelEncoder()
 x.iloc[:, 2] = le.fit_transform(x.iloc[:, 2])
+x
 
 # Enconding "Geography"
-x.iloc[:, 1] = le.fit_transform(x[["Geography"]])# As a result, we have: France = 0; Germay = 1; Spain = 2
+x.iloc[:, 1] = le.fit_transform(np.array(x[["Geography"]]).reshape(len(x[["Geography"]]), ))# As a result, we have: France = 0; Germay = 1; Spain = 2
 x
 
 # Define training and test sets
