@@ -57,13 +57,19 @@ ann.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accura
 ann.fit(x_train, y_train, batch_size = 32, epochs = 100)
 
 # Predict if the costumer with the following informations will leave the bank:
-#   Greography: France
-#   Credit Score: 600
-#   Gender: Male
-#   Age: 40 years old
-#   Tenure: 3 years
-#   Balance: $ 60000
-#   Have a credit card: yes
-#   Is it an active member: yes
-#   Estimated salary: $ 50000
+#    Greography: France
+#    Credit Score: 600
+#    Gender: Male
+#    Age: 40 years old
+#    Tenure: 3 years
+#    Balance: $ 60000
+#    Have a credit card: yes
+#    Is it an active member: yes
+#    Estimated salary: $ 50000
 print(ann.predict(sc.transform([[0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])) > 0.5)
+
+# Predicting the Test set results
+y_pred = ann.predict(x_test)
+y_pred = y_pred > 0.5
+y_test = np.array(y_test)
+print(np.concatenate((y_pred.reshape(len(y_pred), 1), y_test.reshape(len(y_test), 1)), 1))
