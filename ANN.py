@@ -38,14 +38,20 @@ sc = StandardScaler()
 x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
 
-# Create our aritificial neural network
+# Create our Aritificial Neural Network (ANN)
 ann = tf.keras.models.Sequential()
 
 # Add input layer and first hidden layer to ANN
-ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+ann.add(tf.keras.layers.Dense(units = 6, activation = 'relu'))
 
 # Add second layer
 ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
 
 # Add the output layer
 ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+
+# Compile ANN
+ann.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# Trains ANN on Training set
+ann.fit(x_train, y_train, batch_size=32, epochs=100)
