@@ -13,11 +13,24 @@ Original file is located at
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+
 from sklearn.preprocessing import LabelEncoder
 
 dataset = pd.read_csv('Churn_Modelling.csv')
 x = dataset.iloc[:, 3:-1]
 y = dataset.iloc[:, -1]
 
+#Encoding "Gender"
 le = LabelEncoder()
 x.iloc[:, 2] = le.fit_transform(x.iloc[:, 2])
+x
+
+#Enconding "Geography"
+x.iloc[:, 1] = le.fit_transform(x[["Geography"]])
+x
+# As a result, we have:
+# France - 0
+# Germay - 1
+# Spain - 2
+
+_validate_remainder(x)
