@@ -17,6 +17,7 @@ import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix, accuracy_score
 
 dataset = pd.read_csv('Churn_Modelling.csv')
 x = dataset.iloc[:, 3:-1]
@@ -53,7 +54,7 @@ ann.add(tf.keras.layers.Dense(units = 1, activation = 'sigmoid'))
 # Compile ANN
 ann.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-# Trains ANN on Training set
+# Train ANN on Training set
 ann.fit(x_train, y_train, batch_size = 32, epochs = 100)
 
 # Predict if the costumer with the following informations will leave the bank:
@@ -68,8 +69,14 @@ ann.fit(x_train, y_train, batch_size = 32, epochs = 100)
 #    Estimated salary: $ 50000
 print(ann.predict(sc.transform([[0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])) > 0.5)
 
-# Predicting the Test set results
+# Predict the Test set results
 y_pred = ann.predict(x_test)
 y_pred = y_pred > 0.5
 y_test = np.array(y_test)
 print(np.concatenate((y_pred.reshape(len(y_pred), 1), y_test.reshape(len(y_test), 1)), 1))
+
+# Make the Confusion Matrix
+from sklearn.metrics import confusion_matrix, accuracy_score
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+accuracy_score(y_test, y_pred)
