@@ -27,11 +27,8 @@ le = LabelEncoder()
 x.iloc[:, 2] = le.fit_transform(x.iloc[:, 2])
 
 # Enconding "Geography"
-x.iloc[:, 1] = le.fit_transform(x[["Geography"]])
-# As a result, we have:
-# France - 0
-# Germay - 1
-# Spain - 2
+x.iloc[:, 1] = le.fit_transform(x[["Geography"]])# As a result, we have: France = 0; Germay = 1; Spain = 2
+x
 
 # Define training and test sets
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 0)
@@ -40,3 +37,15 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, rando
 sc = StandardScaler()
 x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
+
+# Create our aritificial neural network
+ann = tf.keras.models.Sequential()
+
+# Add input layer and first hidden layer to ANN
+ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+
+# Add second layer
+ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+
+# Add the output layer
+ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
